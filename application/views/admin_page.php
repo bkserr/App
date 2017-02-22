@@ -9,7 +9,7 @@
 		$email = ($this->session->userdata['logged_in']['user_email']);
 	} 
 	else {
-		header("location: login");
+		header("location:".base_url("Inventory/view_login"));
 	}
 ?>
 <head>
@@ -28,6 +28,7 @@
 		echo "<br/>";
 		echo "Your Email is " . $email;
 		echo "<br/>";
+		
 	?>
 	<b id="logout"><a href="logout">Logout</a></b>
 	</div>

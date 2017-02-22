@@ -53,6 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <?php
 
 
+        //echo form_open('User_Authentication/user_login_process');
         echo form_open('User_Authentication/user_login_process');
       ?>
         <h2 class="form-signin-heading">Please sign in</h2>

@@ -1,10 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Inventory_model extends CI_Model {
+class Users_model extends CI_Model {
 
 	public function __construct(){
 		parent::__construct();
+
+		
 	}
 
 	public function access_db()
@@ -20,19 +22,25 @@ class Inventory_model extends CI_Model {
 
 	}
 
+
+
 	public function login($data){
 
-		$condition = "user_name ='".$data['username']."' AND user_password ='".$data['password']."'";
+		$condition = "user_name ='".$data['username']."'";
 		$this->db->select('*');
 		$this->db->from('user_login');
 		$this->db->where($condition);
 		$this->db->limit(1);
 
 		$query = $this->db->get();
+		$pass =  array_shift($query->result_array());
 
-		if($query->num_rows() ==1){
+			
+			
+		if($this->bcrypt->check_password($data['password'],	$pass['user_password']) == TRUE){
 			return 	$query->result();
 		}
+		
 		else{
 			return false;
 		}

@@ -16,10 +16,13 @@ class User_Authentication extends CI_Controller{
 	// Load session library
 	$this->load->library('session/session');
 
-	// Load database
-	$this->load->model('inventory_model');
+	//Load Bcrypt library
+	$this->load->library('bcrypt');
 
-	$this->load->controller('inventory');
+	// Load database
+	$this->load->model('users_model');
+
+	//$this->load->controller('inventory');
 	}
 
 	public function user_login_process(){
@@ -33,28 +36,29 @@ class User_Authentication extends CI_Controller{
 		if($this->form_validation->run() == FALSE){
 			if(isset($this->session->userdata['logged_in'])){
 
-				//$invObj = new Inventory();
-
-				//$this->inventory->admin_page();
-				//header("location:".base_url("Inventory/admin_page"));
+				redirect('Inventory/admin_page');
 			}
 			else{
-				//$this->inventory->view_login();
-				//header("location:".base_url("Inventory/view_login"));
+				
+				redirect('Inventory/view_login');
 			}
 		}
 		else{
+
+			//$pass = $this->input->post('password');
+
 			$data = array(
 				'username' => $this->input->post('username'),
 				'password' => $this->input->post('password')
 				);
 
-			$this->load->model('inventory_model');
-			$result = $this->inventory_model->login($data);
+			$this->load->model('users_model');
+
+			$result = $this->users_model->login($data);
 
 			if($result == TRUE){
 				$username = $this->input->post('username');
-				$result = $this->inventory_model->read_user_information($username);
+				$result = $this->users_model->read_user_information($username);
 
 				if($result != FALSE){
 					$session_data = array(
@@ -64,32 +68,18 @@ class User_Authentication extends CI_Controller{
 					//Add user in session
 					$this->session->set_userdata('logged_in', $session_data);
 				
-					//$invObj = new Inventory();
-					//$invObj->admin_page();
-					//header("location:".base_url("Inventory/admin_page"));
-					//$this->load->view('Admin_page');
-					
-					$this->inventory->admin_page();
+					redirect("Inventory/admin_page");
 				}				
 			}
 			else{
-				//$data = array(
-				//	'error_message' => 'Invalid Username/Password');
-				//$this->load->view('login', $data);
-				//header("location:".base_url("Inventory/err_view_login"));
+				
+				echo $result;
+				//redirect("Inventory/err_view_login");
 				}
 		}
 	}
 
-	/*public function logout(){
-
-		//Removing
-		$sess_array = array(
-			'username' => '');
-		$this->session->unset_userdata('logged_in', $sess_array);
-		$data['message_display'] = 'Successfully Logout';
-		 header("location:".base_url("Inventory/view_login"));
-	}*/
+	
 }
 
 ?>

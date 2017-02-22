@@ -18,6 +18,10 @@ class Inventory extends MY_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+
+	//require base_url('controllers\User_Authentication');
+
+
 	public function index()
 	{
 		$this->load->view('welcome_message');
