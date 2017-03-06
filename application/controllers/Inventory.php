@@ -27,11 +27,13 @@ class Inventory extends MY_Controller {
 		$this->load->view('welcome_message');
 	}
 
+	
+
 	public function view_login()
 	{
 		
-		$this->load->view('login');
-		
+		//$this->load->view('login');
+		redirect('Auth/login');
 	}
 
 	public function view_profile()

@@ -34,7 +34,7 @@ class Users_model extends CI_Model {
 
 		$query = $this->db->get();
 		$pass =  array_shift($query->result_array());
-
+		//$pass = $query->result_array();
 			
 			
 		if($this->bcrypt->check_password($data['password'],	$pass['user_password']) == TRUE){

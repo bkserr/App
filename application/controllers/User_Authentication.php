@@ -73,8 +73,8 @@ class User_Authentication extends CI_Controller{
 			}
 			else{
 				
-				echo $result;
-				//redirect("Inventory/err_view_login");
+				//echo $result;
+				redirect("Inventory/err_view_login");
 				}
 		}
 	}
